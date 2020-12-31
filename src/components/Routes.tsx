@@ -9,26 +9,34 @@ import { Arr } from "./Context/ArrContext";
 function Routes() {
   const { user } = useContext(Arr);
   return (
-    <Router>
-      <Header />
-      {user ? (
-        <Route exact path="/">
-          <Main />
-        </Route>
-      ) : (
-        <>
+    <div
+      style={{
+        fontFamily: "Lato",
+        backgroundColor: "#E0F7F8",
+        minHeight: "100vh",
+      }}
+    >
+      <Router>
+        <Header />
+        {user ? (
           <Route exact path="/">
-            <Login />
+            <Main />
           </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Registration />
-          </Route>
-        </>
-      )}
-    </Router>
+        ) : (
+          <>
+            <Route exact path="/">
+              <Login />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/register">
+              <Registration />
+            </Route>
+          </>
+        )}
+      </Router>
+    </div>
   );
 }
 

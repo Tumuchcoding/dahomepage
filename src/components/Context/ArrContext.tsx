@@ -1,4 +1,4 @@
-import React, { useState, createContext, useRef } from "react";
+import React, { useState, createContext } from "react";
 
 const init = {
   user: null,
@@ -9,7 +9,6 @@ const init = {
   onChange: () => {},
   isLoading: false,
   setIsLoading: () => {},
-  focusRef: null,
   updateOn: false,
   setUpDateOn: () => {},
   input: {
@@ -41,7 +40,6 @@ type contextTypes = {
   onChange: React.Dispatch<React.SetStateAction<Date>>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  focusRef: React.RefObject<HTMLInputElement> | null;
   updateOn: boolean;
   setUpDateOn: React.Dispatch<React.SetStateAction<boolean>>;
   input: {
@@ -65,7 +63,6 @@ const ArrContext: React.FC = ({ children }) => {
   const [arr, setArr] = useState<ArrType[]>([]);
   const [value, onChange] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
-  const focusRef = useRef<HTMLInputElement | null>(null);
   const [updateOn, setUpDateOn] = useState(false);
   const [user, setUser] = useState<User | null>(null);
 
@@ -85,7 +82,6 @@ const ArrContext: React.FC = ({ children }) => {
     setInput,
     isLoading,
     setIsLoading,
-    focusRef,
     updateOn,
     setUpDateOn,
     user,

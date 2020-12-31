@@ -4,6 +4,8 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
+  Divider,
+  makeStyles,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
@@ -15,55 +17,69 @@ export default function Todolists() {
   const { arr, updateOn } = useContext(Arr);
   const { lineOver, update, remove } = useFormAction();
 
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      "&:hover": {
+        color: "red",
+      },
+    },
+    iconHover: {
+      "&:hover > div:hover": {
+        opacity: 1,
+      },
+    },
+    icons: {
+      opacity: ".1",
+    },
+  }));
+  const classes = useStyles();
   return (
-    <ul>
-      {arr.map((list) => (
-        <li key={list.id}>
-          <List style={{ cursor: "pointer" }}>
-            <ListItem
-              onClick={() => lineOver(list)}
-              // className={list.lineThrough ? styles.crossedLine : null}
-            >
-              <ListItemText primary={list.text} />
-              <ListItemSecondaryAction>
-                <IconButton
-                  edge="end"
-                  aria-label="delete"
-                  onClick={() => update(list.id)}
-                  disabled={updateOn}
-                >
-                  <EditIcon />
-                </IconButton>
-                <IconButton
-                  edge="end"
-                  aria-label="delete"
-                  onClick={() => remove(list.id)}
-                  disabled={updateOn}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          </List>
-
-          {/* <span
-            style={{ cursor: "pointer" }}
-            // className={list.lineThrough ? styles.crossedLine : null}
-            onClick={() => lineOver(list)}
-          >
-            {list.text}
-          </span>
-
-          <div>
-            <button onClick={() => update(list.id)} disabled={updateOn}>
-              update
-            </button>
-            <button onClick={() => remove(list.id)} disabled={updateOn}>
-              delete
-            </button>
-          </div> */}
-        </li>
+    <>
+      {arr?.map((list) => (
+        <div
+          key={list.id}
+          style={
+            list.lineThrough
+              ? { textDecoration: "line-through" }
+              : { textDecoration: "none" }
+          }
+        >
+          <div className={classes.root}>
+            <List style={{ cursor: "pointer" }}>
+              <ListItem onClick={() => lineOver(list)}>
+                <ListItemText
+                  primary={list.text}
+                  style={{ fontFamily: "Lato" }}
+                />
+                <ListItemSecondaryAction className={classes.iconHover}>
+                  <div className={classes.icons}>
+                    {" "}
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => update(list.id)}
+                      disabled={updateOn}
+                      size="small"
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => remove(list.id)}
+                      disabled={updateOn}
+                      size="small"
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </div>
+                </ListItemSecondaryAction>
+              </ListItem>
+            </List>
+            <Divider />
+          </div>
+        </div>
       ))}
-    </ul>
+    </>
   );
 }

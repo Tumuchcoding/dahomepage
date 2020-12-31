@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect } from "react";
 import { Arr } from "../Context/ArrContext";
 import { db } from "../Firebase/firebase";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import "./MyCalendar.css";
 
 function MyCalendar() {
   const { setArr, value, onChange, user } = useContext(Arr);

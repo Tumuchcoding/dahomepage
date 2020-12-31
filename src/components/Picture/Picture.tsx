@@ -62,31 +62,30 @@ function Picture() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={filePreview}
-          ref={inputRef}
-          id="icon-button-file"
-          style={{ display: "none" }}
-        />
-        <label htmlFor="icon-button-file">
-          <IconButton
-            color="primary"
-            aria-label="upload picture"
-            component="span"
-          >
-            <PhotoCamera />
-          </IconButton>
-        </label>
-        <button>Submit</button>
-      </form>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={filePreview}
+        ref={inputRef}
+        id="icon-button-file"
+        style={{ display: "none" }}
+      />
+      <label htmlFor="icon-button-file">
+        <IconButton
+          color="primary"
+          aria-label="upload picture"
+          component="span"
+        >
+          <PhotoCamera />
+        </IconButton>
+      </label>
+
       {pic && (
         <div>
           <img src={PreviewPic} alt="" width="50px" height="50px" />
           <button onClick={handleClearPic}>clear</button>
+          <button>Submit</button>
         </div>
       )}
       {picUrl && (
@@ -95,7 +94,7 @@ function Picture() {
           <button onClick={() => removeFromDB()}>delete</button>{" "}
         </>
       )}
-    </div>
+    </form>
   );
 }
 

@@ -17,17 +17,19 @@ function Jokes() {
     if (loading) getData();
   }, [getData, loading]);
   return (
-    <>
-      <span>{joke}</span>
+    <div style={{ display: "flex" }}>
       <Button color="primary">
         <img
           src={JokeIcon}
           alt=""
-          width="100px"
+          width="60px"
           onClick={() => setLoading(true)}
         />
       </Button>
-    </>
+      <div style={{ margin: "3px", alignSelf: "center" }}>
+        <blockquote style={{ fontWeight: 400 }}>"{joke}"</blockquote>
+      </div>
+    </div>
   );
 }
 

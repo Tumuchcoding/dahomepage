@@ -9,7 +9,6 @@ function useFormAction() {
     input,
     setInput,
     setIsLoading,
-    focusRef,
     updateOn,
     setUpDateOn,
     user,
@@ -33,7 +32,6 @@ function useFormAction() {
     const num: ArrType | undefined = arr?.find((todo) => todo?.id === id);
     const updateInput: any = num;
     setInput(updateInput);
-    focusRef?.current?.focus();
     setUpDateOn(true);
   };
 
