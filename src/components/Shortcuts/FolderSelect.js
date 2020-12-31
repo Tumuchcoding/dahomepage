@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { db } from "../Firebase/firebase";
+import { Arr } from "../Context/ArrContext";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete, {
   createFilterOptions,
@@ -12,22 +13,27 @@ export function FolderSelect({ folderlink, setFolderArr }) {
   const [value, setValue] = useState({
     title: "default",
   });
+  const { user } = useContext(Arr);
 
   useEffect(() => {
-    return db.collection(`channels/test/folder`).onSnapshot((snapshot) => {
-      const docs = [];
-      snapshot.forEach((doc) => {
-        docs.push(doc.id);
+    return db
+      .collection(`channels/${user?.uid}/folder`)
+      .onSnapshot((snapshot) => {
+        const docs = [];
+        snapshot.forEach((doc) => {
+          docs.push(doc.id);
+        });
+        setFolderID(docs);
       });
-      setFolderID(docs);
-    });
-  }, []);
+  }, [user?.uid]);
 
   useEffect(() => {
     if (value !== "")
-      db.collection(`channels/test/renderlist`).doc(value?.title).set({});
+      db.collection(`channels/${user?.uid}/renderlist`)
+        .doc(value?.title)
+        .set({});
     return folderlink(value?.title);
-  }, [folderlink, setFolderArr, value]);
+  }, [folderlink, setFolderArr, user?.uid, value]);
 
   let newArr = [];
   folderID.map((array) => newArr.push({ title: array }));

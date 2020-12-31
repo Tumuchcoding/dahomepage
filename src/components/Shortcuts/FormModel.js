@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { db } from "../Firebase/firebase";
 import { v4 as uuidv4 } from "uuid";
 import Button from "@material-ui/core/Button";
@@ -8,12 +8,13 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { FolderSelect } from "./FolderSelect";
+import { Arr } from "../Context/ArrContext";
 
 export default function FormModel({ folderArr, setFolderArr }) {
   const [open, setOpen] = React.useState(false);
   const [input, setInput] = useState("");
   const [folder, setFolder] = useState("");
-
+  const { user } = useContext(Arr);
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export default function FormModel({ folderArr, setFolderArr }) {
     const valid = validURL(input);
     if (valid) {
       const hostname = domain(input);
-      db.collection(`channels/test/folder`)
+      db.collection(`channels/${user?.uid}/folder`)
         .doc(folder)
         .set({
           url: [

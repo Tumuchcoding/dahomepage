@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { db } from "../Firebase/firebase";
 import FormModel from "./FormModel";
 import TreeRender from "./TreeRender";
+import { Arr } from "../Context/ArrContext";
 
 function Links() {
   const [folderArr, setFolderArr] = useState([]);
+  const { user } = useContext(Arr);
   useEffect(() => {
-    return db.collection(`channels/test/folder`).onSnapshot((snapshot) => {
-      const folders = [];
-      snapshot.forEach((folder) => {
-        folders.push({ ...folder.data(), folder: folder.id });
+    return db
+      .collection(`channels/${user?.uid}/folder`)
+      .onSnapshot((snapshot) => {
+        const folders = [];
+        snapshot.forEach((folder) => {
+          folders.push({ ...folder.data(), folder: folder.id });
+        });
+        setFolderArr(folders);
       });
-      setFolderArr(folders);
-    });
-  }, []);
+  }, [user?.uid]);
 
   return (
     <>
