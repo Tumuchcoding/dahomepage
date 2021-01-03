@@ -26,7 +26,7 @@ function Jokes() {
           onClick={() => setLoading(true)}
         />
       </Button>
-      <div style={{ margin: "3px", alignSelf: "center" }}>
+      <div style={{ alignSelf: "center" }}>
         <blockquote style={{ fontWeight: 400 }}>"{joke}"</blockquote>
       </div>
     </div>

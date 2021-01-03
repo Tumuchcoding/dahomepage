@@ -94,7 +94,7 @@ export function FolderSelect({ folderlink, setFolderArr }) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Free solo with text demo"
+          label="Select or Create new folder"
           variant="outlined"
         />
       )}

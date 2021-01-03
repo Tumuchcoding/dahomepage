@@ -6,32 +6,30 @@ import MyCalendar from "../Calendar/MyCalendar";
 import ClockWatch from "../Clock/ClockWatch";
 import Time from "../Clock/Time";
 import Jokes from "../Jokes/Jokes";
-import Picture from "../Picture/Picture";
+// import Picture from "../Picture/Picture";
 import Links from "../Shortcuts/Links";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { Divider, Paper } from "@material-ui/core";
+import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
-    padding: theme.spacing(0, 15),
+    display: "flex",
+    padding: theme.spacing(5, 15, 0, 15),
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
   },
   mainContainer: {
     flexDirection: "column",
-    minHeight: "90vh",
+    Height: "100vh",
+    Width: "80%",
   },
-  gridItem: {
-    padding: theme.spacing(2),
-    margin: "10px",
-  },
-  clock: {
+  time: {
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
-    padding: theme.spacing(0, 2, 2, 2),
-    margin: "0 10px 10px 10px",
   },
 }));
 
@@ -51,33 +49,32 @@ export default function Main() {
             <Grid
               item
               container
-              xs={false}
-              sm={4}
+              sm={12}
+              md={6}
+              lg={4}
               className={classes.mainContainer}
             >
-              <div className={classes.clock}>
+              <div className={classes.time}>
                 <Time />
-                <ClockWatch />
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <ClockWatch />
+                  <div style={{ margin: "10px, 0" }}>
+                    {new Date().toLocaleDateString("en")}
+                  </div>
+                </div>
               </div>
-              <Divider />
-              <div className={classes.gridItem}>
-                <MyCalendar />{" "}
-              </div>
-
-              <Divider />
-
+              <MyCalendar /> <Divider />
               <Jokes />
-              <Divider />
-
-              <Paper className={classes.gridItem}>
+              {/* <div className={classes.gridItem}>
                 <Picture />
-              </Paper>
+              </div> */}
             </Grid>
             <Grid
               item
               container
-              xs={false}
-              sm={4}
+              sm={12}
+              md={6}
+              lg={4}
               className={classes.mainContainer}
             >
               <FormInput />
@@ -86,8 +83,9 @@ export default function Main() {
             <Grid
               item
               container
-              xs={false}
-              sm={4}
+              sm={12}
+              md={6}
+              lg={4}
               className={classes.mainContainer}
             >
               <Links />

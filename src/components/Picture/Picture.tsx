@@ -83,7 +83,14 @@ function Picture() {
 
       {pic && (
         <div>
-          <img src={PreviewPic} alt="" width="50px" height="50px" />
+          <img
+            src={PreviewPic}
+            alt=""
+            width="50px"
+            height="50px"
+            object-fit="cover"
+            style={{}}
+          />
           <button onClick={handleClearPic}>clear</button>
           <button>Submit</button>
         </div>
@@ -91,7 +98,7 @@ function Picture() {
       {picUrl && (
         <>
           <img src={picUrl} alt="pic" />
-          <button onClick={() => removeFromDB()}>delete</button>{" "}
+          {/* <button onClick={() => removeFromDB()}>delete</button>{" "} */}
         </>
       )}
     </form>

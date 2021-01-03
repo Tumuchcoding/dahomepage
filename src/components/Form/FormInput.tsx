@@ -20,7 +20,7 @@ function FormInput() {
         variant="outlined"
         onChange={handleChange}
         inputRef={(input) => input && input.focus()}
-        style={{ width: "100%" }}
+        style={{ width: "100%", background: "white" }}
         autoComplete="off"
       />
     </form>

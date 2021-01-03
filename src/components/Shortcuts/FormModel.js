@@ -9,6 +9,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { FolderSelect } from "./FolderSelect";
 import { Arr } from "../Context/ArrContext";
+import { TextField } from "@material-ui/core";
 
 export default function FormModel({ folderArr, setFolderArr }) {
   const [open, setOpen] = React.useState(false);
@@ -62,7 +63,6 @@ export default function FormModel({ folderArr, setFolderArr }) {
 
   const handleClose = () => {
     setOpen(false);
-    setData(null);
   };
   const folderlink = (url) => {
     setFolder(url);
@@ -70,26 +70,41 @@ export default function FormModel({ folderArr, setFolderArr }) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open form dialog
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={handleClickOpen}
+        style={{ width: "100%" }}
+      >
+        Create new Bookmark
       </Button>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Add</DialogTitle>
+        <DialogTitle id="form-dialog-title">Add new bookmark</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Paste your url and select a folder
           </DialogContentText>
           <form>
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-            />
-            <FolderSelect folderlink={folderlink} setFolderArr={setFolderArr} />
+            <div>
+              <TextField
+                id="outlined-basic"
+                label="Your Link"
+                variant="outlined"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                inputRef={(input) => input && input.focus()}
+                style={{ width: "100%", background: "white" }}
+                autoComplete="off"
+              />
+              <FolderSelect
+                folderlink={folderlink}
+                setFolderArr={setFolderArr}
+              />
+            </div>
           </form>
         </DialogContent>
         <DialogActions>
@@ -97,7 +112,7 @@ export default function FormModel({ folderArr, setFolderArr }) {
             Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary">
-            Subscribe
+            Add
           </Button>
         </DialogActions>
       </Dialog>

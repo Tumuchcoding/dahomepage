@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TreeView from "@material-ui/lab/TreeView";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -19,12 +19,28 @@ const useStyles = makeStyles({
 
 function TreeRender({ folderArr }) {
   const classes = useStyles();
-  const [expanded, setExpanded] = useState([]);
+
   const [selected, setSelected] = useState([]);
+  const [expanded, setExpanded] = useState([]);
+
   const { user } = useContext(Arr);
+  useEffect(() => {
+    db.collection(`channels/${user?.uid}/renderlist`)
+      .doc("Expanded")
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const data = doc.data();
+          setExpanded(data.expanded);
+        }
+      });
+  }, [user?.uid]);
 
   const handleToggle = (e, nodeIds) => {
     setExpanded(nodeIds);
+    db.collection(`channels/${user?.uid}/renderlist`)
+      .doc("Expanded")
+      .set({ expanded: nodeIds });
   };
 
   const handleSelect = (e, nodeIds) => {

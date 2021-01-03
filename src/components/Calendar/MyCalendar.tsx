@@ -30,7 +30,14 @@ function MyCalendar() {
     getDay();
   }, [day, getDay]);
 
-  return <Calendar onChange={onChange} value={value} onClickDay={getDay} />;
+  return (
+    <Calendar
+      onChange={onChange}
+      value={value}
+      onClickDay={getDay}
+      showNavigation={false}
+    />
+  );
 }
 
 export default MyCalendar;

@@ -4,7 +4,6 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
-  Divider,
   makeStyles,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -20,7 +19,7 @@ export default function Todolists() {
   const useStyles = makeStyles((theme) => ({
     root: {
       "&:hover": {
-        color: "red",
+        color: "#31CACE",
       },
     },
     iconHover: {
@@ -45,7 +44,14 @@ export default function Todolists() {
           }
         >
           <div className={classes.root}>
-            <List style={{ cursor: "pointer" }}>
+            <List
+              style={{
+                cursor: "pointer",
+                background: "rgba(254, 254, 254, 0.2)",
+                padding: "0 ",
+                marginTop: "10px",
+              }}
+            >
               <ListItem onClick={() => lineOver(list)}>
                 <ListItemText
                   primary={list.text}
@@ -76,7 +82,7 @@ export default function Todolists() {
                 </ListItemSecondaryAction>
               </ListItem>
             </List>
-            <Divider />
+            {/* <Divider /> */}
           </div>
         </div>
       ))}

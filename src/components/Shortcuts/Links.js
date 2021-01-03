@@ -13,7 +13,10 @@ function Links() {
       .onSnapshot((snapshot) => {
         const folders = [];
         snapshot.forEach((folder) => {
-          folders.push({ ...folder.data(), folder: folder.id });
+          folders.push({
+            ...folder.data(),
+            folder: folder.id,
+          });
         });
         setFolderArr(folders);
       });

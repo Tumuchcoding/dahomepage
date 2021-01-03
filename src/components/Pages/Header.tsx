@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Arr } from "../Context/ArrContext";
 import { auth } from "../Firebase/firebase";
 import { makeStyles } from "@material-ui/core/styles";
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Header() {
-  const history = useHistory();
+  // const history = useHistory();
   const { user } = useContext(Arr);
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(
     null
@@ -41,8 +41,9 @@ function Header() {
     if (anchorEl === null) setAnchorEl(() => e.currentTarget);
   }
   const handleLogout = () => {
+    setAnchorEl(null);
     auth.signOut();
-    history.push("/");
+    // history.push("/");
   };
   function handleClose() {
     setAnchorEl(null);
@@ -79,7 +80,7 @@ function Header() {
           </Menu>
         </div>
       ) : (
-        <>
+        <div>
           <NavLink className={classes.links} exact to="/login">
             <Button color="inherit">Login</Button>
           </NavLink>
@@ -87,7 +88,7 @@ function Header() {
           <NavLink className={classes.links} exact to="/register">
             <Button color="inherit">Register</Button>
           </NavLink>
-        </>
+        </div>
       )}
     </div>
   );
