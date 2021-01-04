@@ -11,20 +11,29 @@ import Links from "../Shortcuts/Links";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { Divider } from "@material-ui/core";
+import { Divider, Hidden } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    padding: theme.spacing(5, 15, 0, 15),
+    flex: 1,
+    padding: theme.spacing(5, 3, 0, 3),
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
+    [theme.breakpoints.up("xl")]: {
+      padding: theme.spacing(5, 30, 0, 30),
+    },
+    [theme.breakpoints.only("sm")]: {
+      padding: theme.spacing(0, 10),
+    },
+    [theme.breakpoints.only("xs")]: {
+      padding: theme.spacing(0, 3),
+    },
   },
   mainContainer: {
     flexDirection: "column",
-    Height: "100vh",
-    Width: "80%",
+    Width: "100%",
   },
   time: {
     display: "flex",
@@ -64,7 +73,11 @@ export default function Main() {
                 </div>
               </div>
               <MyCalendar /> <Divider />
-              <Jokes />
+              <Hidden smDown>
+                <div style={{ margin: "10px" }}>
+                  <Jokes />
+                </div>
+              </Hidden>
               {/* <div className={classes.gridItem}>
                 <Picture />
               </div> */}

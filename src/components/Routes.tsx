@@ -13,6 +13,8 @@ function Routes() {
       style={{
         fontFamily: "Lato",
         backgroundColor: "#E0F7F8",
+        boxSizing: "border-box",
+        margin: "0",
         minHeight: "100vh",
       }}
     >

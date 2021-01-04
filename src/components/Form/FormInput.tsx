@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import useFormAction from "./useFormAction";
 
 function FormInput() {
-  const { input, setInput } = useContext(Arr);
+  const { input, setInput, updateOn } = useContext(Arr);
   const { handleSubmit } = useFormAction();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +19,7 @@ function FormInput() {
         value={input.text}
         variant="outlined"
         onChange={handleChange}
-        inputRef={(input) => input && input.focus()}
+        inputRef={(input) => updateOn && input?.focus()}
         style={{ width: "100%", background: "white" }}
         autoComplete="off"
       />
