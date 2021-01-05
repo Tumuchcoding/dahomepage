@@ -94,7 +94,7 @@ function Registration() {
                 variant="outlined"
                 required
                 fullWidth
-                id="firstName"
+                id="name"
                 label="Your Name"
                 autoFocus
                 value={regInput.name}
@@ -139,21 +139,19 @@ function Registration() {
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
+            style={{ backgroundColor: "#31cace", color: "white" }}
             className={classes.submit}
           >
             Sign Up
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link2 href="#" variant="body2">
-                <Link
-                  style={{ color: "inherit", textDecoration: "none" }}
-                  to="/login"
-                >
-                  Already have an account? Sign in{" "}
-                </Link>
-              </Link2>
+              <Link
+                style={{ color: "inherit", textDecoration: "none" }}
+                to="/login"
+              >
+                Already have an account? Sign in{" "}
+              </Link>
             </Grid>
           </Grid>
         </form>

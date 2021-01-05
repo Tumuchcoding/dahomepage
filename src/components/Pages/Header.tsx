@@ -8,6 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { Hidden } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    [theme.breakpoints.only("xs")]: {
+      padding: theme.spacing(2, 3),
+    },
   },
   links: {
     textDecoration: "none",
@@ -31,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Header() {
-  // const history = useHistory();
   const { user } = useContext(Arr);
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(
     null
@@ -43,7 +46,6 @@ function Header() {
   const handleLogout = () => {
     setAnchorEl(null);
     auth.signOut();
-    // history.push("/");
   };
   function handleClose() {
     setAnchorEl(null);
@@ -84,10 +86,11 @@ function Header() {
           <NavLink className={classes.links} exact to="/login">
             <Button color="inherit">Login</Button>
           </NavLink>
-
-          <NavLink className={classes.links} exact to="/register">
-            <Button color="inherit">Register</Button>
-          </NavLink>
+          <Hidden smDown>
+            <NavLink className={classes.links} exact to="/register">
+              <Button color="inherit">Register</Button>
+            </NavLink>
+          </Hidden>
         </div>
       )}
     </div>

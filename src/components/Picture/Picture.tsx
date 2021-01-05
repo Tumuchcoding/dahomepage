@@ -55,11 +55,11 @@ function Picture() {
       });
   }, [user?.uid]);
 
-  const removeFromDB = () => {
-    if (picUrl) storage.refFromURL(picUrl).delete();
-    db.collection(`channels/${user?.uid}/images`).doc("one").delete();
-    setPicUrl("");
-  };
+  // const removeFromDB = () => {
+  //   if (picUrl) storage.refFromURL(picUrl).delete();
+  //   db.collection(`channels/${user?.uid}/images`).doc("one").delete();
+  //   setPicUrl("");
+  // };
 
   return (
     <form onSubmit={handleSubmit}>

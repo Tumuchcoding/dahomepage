@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import TreeView from "@material-ui/lab/TreeView";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -9,20 +8,13 @@ import Avatar from "@material-ui/core/Avatar";
 import { Arr } from "../Context/ArrContext";
 import { db } from "../Firebase/firebase";
 
-const useStyles = makeStyles({
-  root: {
-    // height: 216,
-    // flexGrow: 1,
-    // maxWidth: 400,
-  },
-});
+type Props = {
+  folderArr: any[];
+};
 
-function TreeRender({ folderArr }) {
-  const classes = useStyles();
-
-  const [selected, setSelected] = useState([]);
-  const [expanded, setExpanded] = useState([]);
-
+function TreeRender({ folderArr }: Props) {
+  const [expanded, setExpanded] = useState<string[]>([]);
+  const [selected, setSelected] = useState<string[]>([]);
   const { user } = useContext(Arr);
   useEffect(() => {
     db.collection(`channels/${user?.uid}/renderlist`)
@@ -31,33 +23,41 @@ function TreeRender({ folderArr }) {
       .then((doc) => {
         if (doc.exists) {
           const data = doc.data();
-          setExpanded(data.expanded);
+          setExpanded(data?.expanded);
         }
       });
   }, [user?.uid]);
 
-  const handleToggle = (e, nodeIds) => {
+  const handleToggle = (event: React.ChangeEvent<{}>, nodeIds: string[]) => {
     setExpanded(nodeIds);
     db.collection(`channels/${user?.uid}/renderlist`)
       .doc("Expanded")
       .set({ expanded: nodeIds });
   };
 
-  const handleSelect = (e, nodeIds) => {
+  const handleSelect = (event: React.ChangeEvent<{}>, nodeIds: string[]) => {
     setSelected(nodeIds);
   };
 
-  const handleDelete = async (folder, id, url) => {
+  const handleDelete = async (folder: string, id: string, url: []) => {
     db.collection(`channels/${user?.uid}/folder`)
       .doc(folder)
-      .update({ url: url.filter((link) => link.id !== id) });
+      .update({ url: url.filter((link: { id: string }) => link.id !== id) });
+
+    if (url.length < 2) {
+      setExpanded([]);
+      db.collection(`channels/${user?.uid}/renderlist`).doc(folder).delete();
+      db.collection(`channels/${user?.uid}/folder`).doc(folder).delete();
+      db.collection(`channels/${user?.uid}/renderlist`)
+        .doc("Expanded")
+        .set({ expanded: [] });
+    }
   };
 
   return (
     <>
       {folderArr.map((data) => (
         <TreeView
-          className={classes.root}
           defaultCollapseIcon={<ExpandMoreIcon />}
           defaultExpandIcon={<ChevronRightIcon />}
           expanded={expanded}
@@ -68,7 +68,7 @@ function TreeRender({ folderArr }) {
         >
           <TreeItem nodeId={data.folder} label={data?.folder}>
             {data?.url?.length > 0 &&
-              data?.url?.map((link) => (
+              data?.url?.map((link: any) => (
                 <div key={link.id}>
                   <Chip
                     size="medium"

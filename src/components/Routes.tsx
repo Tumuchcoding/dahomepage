@@ -5,6 +5,7 @@ import Header from "./Pages/Header";
 import Registration from "./Pages/Registration";
 import Main from "./Pages/Main";
 import { Arr } from "./Context/ArrContext";
+import PasswordReset from "./Pages/PasswordReset";
 
 function Routes() {
   const { user } = useContext(Arr);
@@ -34,6 +35,9 @@ function Routes() {
             </Route>
             <Route path="/register">
               <Registration />
+            </Route>
+            <Route path="/passwordreset">
+              <PasswordReset />
             </Route>
           </>
         )}

@@ -5,13 +5,13 @@ import TreeRender from "./TreeRender";
 import { Arr } from "../Context/ArrContext";
 
 function Links() {
-  const [folderArr, setFolderArr] = useState([]);
+  const [folderArr, setFolderArr] = useState<{}[]>([]);
   const { user } = useContext(Arr);
   useEffect(() => {
     return db
       .collection(`channels/${user?.uid}/folder`)
       .onSnapshot((snapshot) => {
-        const folders = [];
+        const folders: {}[] = [];
         snapshot.forEach((folder) => {
           folders.push({
             ...folder.data(),

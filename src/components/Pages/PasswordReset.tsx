@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
 import { auth } from "../Firebase/firebase";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link2 from "@material-ui/core/Link";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import { Container } from "@material-ui/core";
+import { Container, Snackbar } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 
 function Copyright() {
   return (
@@ -48,30 +46,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Login() {
+function PasswordReset() {
   const classes = useStyles();
   const [logInput, setLogInput] = useState({
     email: "",
-    password: "",
   });
-  const history = useHistory();
   const [error, setError] = useState(null);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLogInput({ ...logInput, [e.target.id]: e.target.value });
   };
   const handleOnSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    let gotError;
     try {
-      await auth.signInWithEmailAndPassword(logInput.email, logInput.password);
+      await auth.sendPasswordResetEmail(logInput.email);
     } catch (error) {
       setError(error.message);
-      if (error) gotError = error;
     }
-    if (!gotError) history.push("/");
+    setOpen(true);
+    setLogInput({ email: "" });
   };
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -80,7 +83,7 @@ function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Login
+          Remember Password
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleOnSubmit}>
           <TextField
@@ -96,23 +99,6 @@ function Login() {
             value={logInput.email}
             onChange={handleOnChange}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={logInput.password}
-            onChange={handleOnChange}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             fullWidth
@@ -120,34 +106,22 @@ function Login() {
             style={{ backgroundColor: "#31cace", color: "white" }}
             className={classes.submit}
           >
-            Sign In
+            Send Email
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link
-                style={{ color: "inherit", textDecoration: "none" }}
-                to="/passwordreset"
-              >
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link
-                to="/register"
-                style={{ color: "inherit", textDecoration: "none" }}
-              >
-                {"Don't have an account? Sign Up"}{" "}
-              </Link>
-            </Grid>
-          </Grid>
+          <Grid container></Grid>
         </form>
         {error}
       </div>
       <Box mt={8}>
         <Copyright />
       </Box>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          Email has been sent!
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }
 
-export default Login;
+export default PasswordReset;

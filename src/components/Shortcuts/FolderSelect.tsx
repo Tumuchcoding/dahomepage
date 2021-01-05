@@ -6,11 +6,21 @@ import Autocomplete, {
   createFilterOptions,
 } from "@material-ui/lab/Autocomplete";
 
-const filter = createFilterOptions();
+interface FilmOptionType {
+  inputValue?: string;
+  title: string;
+  year?: number;
+}
+const filter = createFilterOptions<FilmOptionType>();
 
-export function FolderSelect({ folderlink, setFolderArr }) {
-  const [folderID, setFolderID] = useState([]);
-  const [value, setValue] = useState({
+type Props = {
+  folderlink: (url: string) => void;
+  setFolderArr: React.Dispatch<React.SetStateAction<{}[]>>;
+};
+
+export function FolderSelect({ folderlink, setFolderArr }: Props) {
+  const [folderID, setFolderID] = useState<any[]>([]);
+  const [value, setValue] = useState<FilmOptionType | null | any>({
     title: "default",
   });
   const { user } = useContext(Arr);
@@ -19,7 +29,7 @@ export function FolderSelect({ folderlink, setFolderArr }) {
     return db
       .collection(`channels/${user?.uid}/folder`)
       .onSnapshot((snapshot) => {
-        const docs = [];
+        const docs: any[] = [];
         snapshot.forEach((doc) => {
           docs.push(doc.id);
         });
@@ -28,14 +38,11 @@ export function FolderSelect({ folderlink, setFolderArr }) {
   }, [user?.uid]);
 
   useEffect(() => {
-    if (value !== "")
-      db.collection(`channels/${user?.uid}/renderlist`)
-        .doc(value?.title)
-        .set({});
+    db.collection(`channels/${user?.uid}/renderlist`).doc(value?.title).set({});
     return folderlink(value?.title);
   }, [folderlink, setFolderArr, user?.uid, value]);
 
-  let newArr = [];
+  let newArr: {}[] = [];
   folderID.map((array) => newArr.push({ title: array }));
 
   return (
