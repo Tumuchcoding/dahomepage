@@ -96,13 +96,13 @@ export function FolderSelect({ folderlink, setFolderArr }: Props) {
       renderOption={(option) => {
         return option.title;
       }}
-      style={{ width: 300 }}
+      style={{ width: 500 }}
       freeSolo
       renderInput={(params) => (
         <TextField
           {...params}
           label="Select or Create new folder"
-          variant="outlined"
+          variant="standard"
         />
       )}
     />

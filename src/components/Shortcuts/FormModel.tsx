@@ -97,12 +97,16 @@ export default function FormModel({ folderArr, setFolderArr }: Props) {
             <div>
               <TextField
                 id="outlined-basic"
-                label="Your Link"
+                label="Your Url"
                 variant="outlined"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 inputRef={(input) => input && input.focus()}
-                style={{ width: "100%", background: "white" }}
+                style={{
+                  width: "100%",
+                  background: "white",
+                  marginBottom: "30px",
+                }}
                 autoComplete="off"
               />
               <FolderSelect

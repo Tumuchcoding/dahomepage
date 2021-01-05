@@ -130,8 +130,10 @@ function Registration() {
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                control={
+                  <Checkbox required value="allowExtraEmails" color="primary" />
+                }
+                label={`By signing up, you agreed to our Terms.`}
               />
             </Grid>
           </Grid>
