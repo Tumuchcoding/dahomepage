@@ -9,7 +9,7 @@
   </p>
 </p>
 
-![Demo](https://github.com/Tumuchcoding/React-Link-Preview/blob/master/public/home-gif.gif)
+![Demo](https://github.com/Tumuchcoding/dahomepage/blob/master/public/daHomePage.gif)
 
 <!-- GETTING STARTED -->
 
