@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <h3 align="center">React Link Preview 🎉👀</h3>
+  <h3 align="center">DaHomePage 🎉👀</h3>
   <p align="center">
     Fullstack React + Typescript + Firebase. DaHomePage, a productivity website app. MIT 
     <br />
