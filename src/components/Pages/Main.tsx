@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
+    marginBottom: "50px",
   },
 }));
 

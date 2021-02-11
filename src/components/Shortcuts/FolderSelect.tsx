@@ -96,7 +96,6 @@ export function FolderSelect({ folderlink, setFolderArr }: Props) {
       renderOption={(option) => {
         return option.title;
       }}
-      style={{ width: 500 }}
       freeSolo
       renderInput={(params) => (
         <TextField

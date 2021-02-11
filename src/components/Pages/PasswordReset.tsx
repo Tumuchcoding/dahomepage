@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
+import { Link } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -108,7 +109,17 @@ function PasswordReset() {
           >
             Send Email
           </Button>
-          <Grid container></Grid>
+
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link
+                style={{ color: "inherit", textDecoration: "none" }}
+                to="/login"
+              >
+                Back to login{" "}
+              </Link>
+            </Grid>
+          </Grid>
         </form>
         {error}
       </div>

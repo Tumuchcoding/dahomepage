@@ -9,7 +9,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { FolderSelect } from "./FolderSelect";
 import { Arr } from "../Context/ArrContext";
-import { TextField } from "@material-ui/core";
+import { makeStyles, TextField } from "@material-ui/core";
 
 type Props = {
   folderArr: any[];
@@ -22,6 +22,16 @@ export default function FormModel({ folderArr, setFolderArr }: Props) {
   const [folder, setFolder] = useState("");
   const { user } = useContext(Arr);
   const [data, setData] = useState([]);
+
+  const useStyles = makeStyles((theme) => ({
+    form: {
+      width: "500px",
+      [theme.breakpoints.only("xs")]: {
+        width: "100%",
+      },
+    },
+  }));
+  const classes = useStyles();
 
   useEffect(() => {
     const copyDataArr = () => {
@@ -93,7 +103,7 @@ export default function FormModel({ folderArr, setFolderArr }: Props) {
           <DialogContentText>
             Paste your url and select a folder
           </DialogContentText>
-          <form>
+          <form className={classes.form}>
             <div>
               <TextField
                 id="outlined-basic"
